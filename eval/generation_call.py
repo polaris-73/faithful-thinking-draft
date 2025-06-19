@@ -93,9 +93,8 @@ def call_vllm_batch(prompts, model_name, vllm_model, tokenizer, thinking_list=No
         all_message_tokens.append(len(tokenizer.encode(messages)))
     if len(prompts) == 1:
         all_messages = all_messages[0]
-        all_message_tokens = all_message_tokens[0]
     # Generate responses for all prompts
-    if all_message_tokens > 16384:
+    if max(all_message_tokens) > 16384:
         max_tokens = 32768
     else:
         max_tokens = 16384
